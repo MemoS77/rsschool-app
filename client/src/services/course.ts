@@ -756,15 +756,7 @@ export interface TaskSolution {
 }
 
 export interface CrossCheckPairs {
-  checkerStudent: {
-    githubId: string;
-    id: number;
-  };
-  courseTask: {
-    courseId: number;
-    id: number;
-  };
-  student: {
+  checker: {
     githubId: string;
     id: number;
   };
@@ -772,8 +764,12 @@ export interface CrossCheckPairs {
     name: string;
     id: number;
   };
+  student: {
+    githubId: string;
+    id: number;
+  };
   url: string;
   comment: string;
   score: number;
-  key: string;
+  id: number;
 }
