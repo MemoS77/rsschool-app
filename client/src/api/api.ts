@@ -92,6 +92,160 @@ export interface AlertDto {
 /**
  * 
  * @export
+ * @interface ApplicantResumeDto
+ */
+export interface ApplicantResumeDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'uuid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'avatarLink': string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ApplicantResumeDto
+     */
+    'visibleCourses': Array<number>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'desiredPosition': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'englishLevel': ApplicantResumeDtoEnglishLevelEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ApplicantResumeDto
+     */
+    'expires': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ApplicantResumeDto
+     */
+    'fullTime': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'githubId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ApplicantResumeDto
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'linkedin': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'locations': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'militaryService': ApplicantResumeDtoMilitaryServiceEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'notes': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'phone': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'selfIntroLink': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'skype': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'startFrom': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'telegram': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicantResumeDto
+     */
+    'website': string;
+}
+
+export const ApplicantResumeDtoEnglishLevelEnum = {
+    Unknown: 'unknown',
+    A0: 'a0',
+    A1: 'a1',
+    A2: 'a2',
+    B1: 'b1',
+    B2: 'b2',
+    C1: 'c1',
+    C2: 'c2'
+} as const;
+
+export type ApplicantResumeDtoEnglishLevelEnum = typeof ApplicantResumeDtoEnglishLevelEnum[keyof typeof ApplicantResumeDtoEnglishLevelEnum];
+export const ApplicantResumeDtoMilitaryServiceEnum = {
+    Served: 'served',
+    Liable: 'liable',
+    NotLiable: 'notLiable'
+} as const;
+
+export type ApplicantResumeDtoMilitaryServiceEnum = typeof ApplicantResumeDtoMilitaryServiceEnum[keyof typeof ApplicantResumeDtoMilitaryServiceEnum];
+
+/**
+ * 
+ * @export
  * @interface ApproveMentorDto
  */
 export interface ApproveMentorDto {
@@ -5457,6 +5611,35 @@ export const OpportunitiesApiAxiosParamCreator = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getApplicants: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/opportunities/applicants`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getConsent: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/opportunities/consent`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -5580,6 +5763,15 @@ export const OpportunitiesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getApplicants(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicantResumeDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicants(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getConsent(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConsentDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConsent(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
@@ -5635,6 +5827,14 @@ export const OpportunitiesApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getApplicants(options?: any): AxiosPromise<Array<ApplicantResumeDto>> {
+            return localVarFp.getApplicants(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getConsent(options?: any): AxiosPromise<ConsentDto> {
             return localVarFp.getConsent(options).then((request) => request(axios, basePath));
         },
@@ -5684,6 +5884,16 @@ export class OpportunitiesApi extends BaseAPI {
      */
     public deleteConsent(options?: AxiosRequestConfig) {
         return OpportunitiesApiFp(this.configuration).deleteConsent(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OpportunitiesApi
+     */
+    public getApplicants(options?: AxiosRequestConfig) {
+        return OpportunitiesApiFp(this.configuration).getApplicants(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
